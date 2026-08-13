@@ -14,7 +14,7 @@
                 <div class="alert-success" role="status">{{ session('status') }}</div>
             @endif
 
-            <form method="POST" action="{{ route('pages.contact.store', ['locale' => $currentLocale]) }}" class="form-grid" novalidate>
+            <form method="POST" action="{{ localized_route('pages.contact.store') }}" class="form-grid" novalidate>
                 @csrf
                 <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 

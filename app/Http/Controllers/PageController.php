@@ -39,7 +39,7 @@ class PageController extends Controller
         $page = Page::active()->published()->where('slug', $slug)->firstOrFail();
 
         $breadcrumbs = [
-            ['label' => __('nav.home'), 'url' => route('home', ['locale' => app()->getLocale()])],
+            ['label' => __('nav.home'), 'url' => localized_route('home')],
             ['label' => $page->title, 'url' => null],
         ];
 

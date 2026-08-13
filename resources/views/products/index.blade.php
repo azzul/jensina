@@ -9,12 +9,12 @@
     </div>
 
     <div class="filter-bar">
-        <a href="{{ route('products.index', ['locale' => $currentLocale]) }}"
+        <a href="{{ localized_route('products.index') }}"
            class="filter-chip" aria-current="{{ $activeCategory === '' ? 'true' : 'false' }}">
             {{ $currentLocale === 'en' ? 'All' : 'Semua' }}
         </a>
         @foreach($categories as $category)
-            <a href="{{ route('products.index', ['locale' => $currentLocale, 'category' => $category->slug]) }}"
+            <a href="{{ localized_route('products.index', ['category' => $category->slug]) }}"
                class="filter-chip" aria-current="{{ $activeCategory === $category->slug ? 'true' : 'false' }}">
                 {{ $category->name }}
             </a>
@@ -23,7 +23,7 @@
 
     <div class="grid grid-3">
         @forelse($products as $product)
-            <a href="{{ route('products.show', ['locale' => $currentLocale, 'slug' => $product->slug]) }}" class="product-card">
+            <a href="{{ localized_route('products.show', ['slug' => $product->slug]) }}" class="product-card">
                 <div class="product-card__img">
                     <img src="{{ $product->thumbnail_url }}" alt="{{ $product->name }}" loading="lazy" width="400" height="300">
                 </div>

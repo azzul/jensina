@@ -2,7 +2,6 @@
 
 namespace App\View\Composers;
 
-use App\Http\Middleware\SetLocale;
 use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\View;
@@ -15,19 +14,25 @@ class SiteDataComposer
         $currentLocale = app()->getLocale();
         $otherLocale = $currentLocale === 'id' ? 'en' : 'id';
 
-        // Swap only the leading /{locale} segment so "switch language" keeps
-        // the visitor on the exact same page (needed for hreflang + UX).
-        $segments = explode('/', trim(Request::path(), '/'));
-        if (! in_array($segments[0] ?? null, SetLocale::SUPPORTED, true)) {
-            array_unshift($segments, $currentLocale);
+        // Indonesian has no url segment, English is prefixed with "en" —
+        // strip a leading "en" if present to get the locale-agnostic rest
+        // of the path, then rebuild both versions from that.
+        $path = trim(Request::path(), '/');
+        $segments = $path === '' ? [] : explode('/', $path);
+
+        if (($segments[0] ?? null) === 'en') {
+            $rest = array_slice($segments, 1);
+        } else {
+            $rest = $segments;
         }
 
-        $localeUrls = [];
-        foreach (SetLocale::SUPPORTED as $locale) {
-            $swapped = $segments;
-            $swapped[0] = $locale;
-            $localeUrls[$locale] = url(implode('/', $swapped));
-        }
+        $idPath = implode('/', $rest);
+        $enPath = implode('/', array_merge(['en'], $rest));
+
+        $localeUrls = [
+            'id' => rtrim(url($idPath), '/') ?: url('/'),
+            'en' => url($enPath),
+        ];
 
         $view->with([
             'siteSettings' => $settings,

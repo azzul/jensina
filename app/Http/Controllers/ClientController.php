@@ -12,7 +12,7 @@ class ClientController extends Controller
         $clients = Client::active()->get();
 
         $breadcrumbs = [
-            ['label' => __('nav.home'), 'url' => route('home', ['locale' => app()->getLocale()])],
+            ['label' => __('nav.home'), 'url' => localized_route('home')],
             ['label' => __('nav.our_client'), 'url' => null],
         ];
 

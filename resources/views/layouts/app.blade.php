@@ -20,10 +20,12 @@
 <meta name="description" content="{{ $pageDescription }}">
 <link rel="canonical" href="{{ $canonicalUrl }}">
 
-{{-- hreflang: tells Google the ID/EN pages are translations, not duplicates --}}
-<link rel="alternate" hreflang="id" href="{{ str_replace('/en/', '/id/', $canonicalUrl) }}">
-<link rel="alternate" hreflang="en" href="{{ str_replace('/id/', '/en/', $canonicalUrl) }}">
-<link rel="alternate" hreflang="x-default" href="{{ str_replace('/en/', '/id/', $canonicalUrl) }}">
+{{-- hreflang: tells Google the id/en pages are translations, not duplicates.
+     Built from $localeUrls (see SiteDataComposer) instead of string-replacing
+     the current URL, since id has no url segment to swap. --}}
+<link rel="alternate" hreflang="id" href="{{ $localeUrls['id'] }}">
+<link rel="alternate" hreflang="en" href="{{ $localeUrls['en'] }}">
+<link rel="alternate" hreflang="x-default" href="{{ $localeUrls['id'] }}">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{{ $siteSettings->site_name }}">

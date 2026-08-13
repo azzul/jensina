@@ -58,7 +58,7 @@
             @endif
 
             <div class="hero__cta" style="margin-top:26px;">
-                <a href="{{ route('pages.contact', ['locale' => $currentLocale]) }}" class="btn btn-primary">{{ __('nav.get_quote') }}</a>
+                <a href="{{ localized_route('pages.contact') }}" class="btn btn-primary">{{ __('nav.get_quote') }}</a>
                 <a href="https://wa.me/{{ preg_replace('/\D/', '', $siteSettings->whatsapp ?: $siteSettings->phone) }}" class="btn btn-outline" rel="nofollow">WhatsApp</a>
             </div>
         </div>
@@ -73,7 +73,7 @@
         </div>
         <div class="grid grid-3">
             @foreach($related as $item)
-                <a href="{{ route('products.show', ['locale' => $currentLocale, 'slug' => $item->slug]) }}" class="product-card">
+                <a href="{{ localized_route('products.show', ['slug' => $item->slug]) }}" class="product-card">
                     <div class="product-card__img">
                         <img src="{{ $item->thumbnail_url }}" alt="{{ $item->name }}" loading="lazy" width="400" height="300">
                     </div>

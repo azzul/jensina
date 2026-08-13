@@ -9,7 +9,7 @@
 @endphp
 <header class="site-header">
     <div class="container site-header__inner">
-        <a href="{{ route('home', ['locale' => $currentLocale]) }}" class="brand">
+        <a href="{{ localized_route('home') }}" class="brand">
             @if($siteSettings->logo_path)
                 <img src="{{ asset('storage/' . $siteSettings->logo_path) }}" alt="{{ $siteSettings->site_name }}" width="42" height="42">
             @endif
@@ -22,7 +22,7 @@
         <nav class="main-nav" data-main-nav aria-label="Main navigation">
             @foreach($navLinks as $link)
                 @php $isActive = request()->routeIs($link['route']); @endphp
-                <a href="{{ route($link['route'], ['locale' => $currentLocale]) }}"
+                <a href="{{ localized_route($link['route']) }}"
                    @if($isActive) aria-current="page" @endif>
                     {{ $link['label'] }}
                 </a>

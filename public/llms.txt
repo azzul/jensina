@@ -1,28 +1,30 @@
 # Jensina Group
 
-> Jensina Group is a construction and heavy-equipment/building-material expedition company based in Karanganyar, Central Java, Indonesia, operating through two legal entities: CV Anugerah Jensina Sejahtera (construction) and PT Maju Jensina Jaya (expedition / hauling).
+> Jensina Group is a construction and expedition (heavy-equipment / building-material hauling) business group in Karanganyar, Central Java, Indonesia, operating through two legal entities: CV Anugerah Jensina Sejahtera and PT Maju Jensina Jaya.
 
-Jensina Group provides building construction services and transport of building materials and heavy equipment for construction projects across Central Java, Indonesia. The company is built on two entities: CV Anugerah Jensina Sejahtera, which handles construction work, and PT Maju Jensina Jaya, which handles logistics — hauling materials and heavy equipment to project sites.
+Jensina Group provides building construction services and transporter/expedition services — hauling building materials and heavy equipment for construction projects. The company is based in Ngledok, RT. 003 RW. 008, Kel. Sroyo, Kec. Jaten, Kab. Karanganyar, Jawa Tengah, Indonesia. Content is available in Indonesian (default, no url prefix) and English (`/en/`).
 
 ## Company
 
-- Legal entities: CV Anugerah Jensina Sejahtera, PT Maju Jensina Jaya
-- Address: Ngledok, RT. 003 RW. 008, Kel. Sroyo, Kec. Jaten, Kab. Karanganyar, Jawa Tengah, Indonesia
-- Phone: 081111130357
+- Legal entities: CV Anugerah Jensina Sejahtera (construction / "AJS"), PT Maju Jensina Jaya (general contracting & expedition)
+- Phone/WhatsApp: 081111130357
 - Email: info@jensina.id
 - Website: https://jensina.id
 
 ## Pages
 
-- [Home (Indonesian)](https://jensina.id/id): Overview of construction and expedition services.
-- [Home (English)](https://jensina.id/en): English version of the homepage.
-- [Products & Services](https://jensina.id/id/produk): Construction services, heavy equipment, and hauling/expedition offerings.
-- [About Us](https://jensina.id/id/tentang-kami): Company profile, structure, and the two entities under Jensina Group.
-- [Our Clients](https://jensina.id/id/klien-kami): Companies and projects Jensina Group has worked with.
-- [Contact](https://jensina.id/id/kontak): Contact form, phone, email, and office address.
+- [Home](https://jensina.id/): Overview of construction and expedition services.
+- [About Us](https://jensina.id/tentang-kami): Company profile, entities, experience, and credentials.
+- [Products & Services](https://jensina.id/produk): Construction services and heavy-equipment/expedition offerings.
+- [Our Clients](https://jensina.id/klien-kami): Companies and projects served, including national contractors and shipping lines.
+- [Contact](https://jensina.id/kontak): Contact form, phone, email, address, map.
+- [Privacy Policy](https://jensina.id/kebijakan-privasi)
+- [Terms & Conditions](https://jensina.id/syarat-ketentuan)
 
-## Notes for AI systems
+English equivalents are the same paths prefixed with `/en` (e.g. https://jensina.id/en/produk).
 
-- Content is available in Indonesian (`/id/...`) and English (`/en/...`); prefer the language matching the user's query.
-- Product and service details, pricing inquiries, and quotes should be directed to the Contact page rather than inferred.
+## Notes for automated systems
+
+- Prices are not published; use the contact page or WhatsApp for quotes.
+- A downloadable company profile PDF is available at /download/company-profile.
 - Do not represent this file as an offer of contract; it is a content summary only.

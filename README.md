@@ -18,7 +18,7 @@ into a fresh `laravel new` project, not run standalone — see setup below.
 | CMS pages (about / privacy / terms / custom-content) | `Page` model, `PageController`, `pages/show.blade.php` |
 | Contact form | `ContactMessage` model, `ContactController`, `pages/contact.blade.php` |
 | Company profile PDF download | `DownloadController`, `site_settings.company_profile_pdf` |
-| Locale (ID/EN) | `app/Http/Middleware/SetLocale.php`, `resources/lang/{id,en}`, `/{locale}/...` routes |
+| Locale (ID/EN) | `app/Http/Middleware/SetLocale.php`, `resources/lang/{id,en}`, `localized_route()` helper, optional `{locale?}` route prefix |
 | Layout / SEO head / JSON-LD | `resources/views/layouts/app.blade.php` |
 | CSS/JS (no framework) | `resources/css/app.css`, `resources/js/app.js` — copied as-is into `public/assets/css` / `public/assets/js`, no Node/build step |
 | llms.txt | `public/llms.txt` |
@@ -91,22 +91,35 @@ php artisan storage:link
 php artisan serve
 ```
 
-Then visit `http://localhost:8000` — it redirects to `/id`.
+Then visit `http://localhost:8000` — that's the Indonesian homepage directly
+(no `/id` prefix). The English version is at `http://localhost:8000/en`.
 
-## Still needs real assets from you (all placeholders right now)
+## Already wired up for you
 
-1. **Logo files** — upload the AJS and Maju Jensina Jaya marks to
-   `storage/app/public/branding/` and set `site_settings.logo_path` /
-   `favicon_path` (Tinker or a quick admin form — none is included here,
-   this deliverable is the public-facing site only).
+- **Real logos**: the two logo files you sent are already in
+  `storage/app/public/branding/` and set as `site_settings.logo_path` /
+  `logo_alt_path` — the header/footer will show them once you run
+  `php artisan storage:link`.
+- **Real client list**: all 11 companies you shared (PT PP, PT Hutama
+  Karya, PT Adhi Karya, PT Penta, PT Arkonin, PT KCC Glass Indonesia,
+  PT OTSU Putra Andalas, PT Qisut Anugerah Mandiri, PT Temas Line,
+  PT Tanto Intim Line, PT Meratus Line) are seeded with generated
+  wordmark placeholders in `storage/app/public/clients/` — swap those
+  image files for the companies' actual logos once you have permission
+  to display them (same filenames, just replace the PNGs).
+
+## Still needs real assets from you
+
+1. **Client logos** — replace the generated wordmark PNGs in
+   `storage/app/public/clients/` with the real company logos.
 2. **Company profile PDF** — put it at
    `storage/app/public/company-profile.pdf` and set
    `site_settings.company_profile_pdf` to `company-profile.pdf`.
-3. **Real client logos** — replace the `clients/placeholder.png` seeder rows
-   with actual client logos once you have permission to display them.
-4. **Product photos** — replace `thumbnail` / `gallery` paths in
-   `products` with real project/equipment photos.
-5. **`default_og_image`** in `site_settings` — a 1200×630 share image.
+3. **Product photos** — replace `thumbnail` / `gallery` paths in
+   `products` with real project/equipment photos (currently falls back
+   to a generated placeholder graphic).
+4. **`default_og_image`** in `site_settings` — a 1200×630 share image.
+5. **Favicon** — set `site_settings.favicon_path`.
 6. **GTM/GA4 IDs** — set `gtm_id` / `ga4_id` in `site_settings` once you
    have them (matches what you mentioned doing for other clients).
 

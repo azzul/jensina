@@ -10,22 +10,26 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Root redirect
+| Locale scheme: Indonesian is the default and carries NO url prefix
+| ("/", "/produk", "/tentang-kami"); English is prefixed with /en
+| ("/en", "/en/produk", "/en/tentang-kami"). This is done with a single
+| OPTIONAL {locale?} route parameter constrained to only ever match the
+| literal "en" — when the first path segment isn't "en", the parameter is
+| simply skipped and the route matches straight through as Indonesian.
+| One route definition therefore serves both locales; no routes are
+| duplicated. See app/Http/Middleware/SetLocale.php for how the parameter
+| is turned into app()->setLocale(), and localized_route() (in
+| app/Support/helpers.php) for building links that respect this scheme
+| from controllers and Blade views.
 |--------------------------------------------------------------------------
-| "/" is not a real page — send visitors to their remembered/default
-| locale so every real URL always carries a /id or /en prefix (clean for
-| hreflang + avoids duplicate-content across two URLs for one page).
 */
-Route::get('/', function () {
-    return redirect('/' . session('locale', 'id'));
-})->name('root');
 
 // Company profile PDF download - locale-agnostic, not a "page" for SEO.
 Route::get('/download/company-profile', DownloadController::class . '@companyProfile')
     ->name('download.company-profile');
 
-Route::prefix('{locale}')
-    ->where(['locale' => 'id|en'])
+Route::prefix('{locale?}')
+    ->where(['locale' => 'en'])
     ->middleware('setlocale')
     ->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -42,6 +46,7 @@ Route::prefix('{locale}')
         Route::get('/kebijakan-privasi', [PageController::class, 'privacy'])->name('pages.privacy');
         Route::get('/syarat-ketentuan', [PageController::class, 'terms'])->name('pages.terms');
 
-        // Free-form SEO landing pages, e.g. /id/artikel/jasa-sewa-alat-berat-karanganyar
+        // Free-form SEO landing pages, e.g. /artikel/jasa-sewa-alat-berat-karanganyar
+        // or /en/artikel/jasa-sewa-alat-berat-karanganyar
         Route::get('/artikel/{slug}', [PageController::class, 'custom'])->name('pages.custom');
     });

@@ -23,7 +23,7 @@ class ProductController extends Controller
             ->withQueryString();
 
         $breadcrumbs = [
-            ['label' => __('nav.home'), 'url' => route('home', ['locale' => app()->getLocale()])],
+            ['label' => __('nav.home'), 'url' => localized_route('home')],
             ['label' => __('nav.products'), 'url' => null],
         ];
 
@@ -51,8 +51,8 @@ class ProductController extends Controller
             ->get();
 
         $breadcrumbs = [
-            ['label' => __('nav.home'), 'url' => route('home', ['locale' => app()->getLocale()])],
-            ['label' => __('nav.products'), 'url' => route('products.index', ['locale' => app()->getLocale()])],
+            ['label' => __('nav.home'), 'url' => localized_route('home')],
+            ['label' => __('nav.products'), 'url' => localized_route('products.index')],
             ['label' => $product->name, 'url' => null],
         ];
 

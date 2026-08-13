@@ -14,8 +14,8 @@
                     : 'Jensina Group memadukan layanan konstruksi bangunan dan jasa angkutan bahan bangunan / alat berat dalam satu atap yang dapat diandalkan, melayani proyek di seluruh Jawa Tengah.' }}
             </p>
             <div class="hero__cta">
-                <a href="{{ route('pages.contact', ['locale' => $currentLocale]) }}" class="btn btn-primary">{{ __('nav.get_quote') }}</a>
-                <a href="{{ route('products.index', ['locale' => $currentLocale]) }}" class="btn btn-outline">{{ __('nav.products') }}</a>
+                <a href="{{ localized_route('pages.contact') }}" class="btn btn-primary">{{ __('nav.get_quote') }}</a>
+                <a href="{{ localized_route('products.index') }}" class="btn btn-outline">{{ __('nav.products') }}</a>
             </div>
             <div class="hero__badges">
                 <div class="hero__badge"><b>2</b>&nbsp;{{ $currentLocale === 'en' ? 'legal entities' : 'badan usaha' }}</div>
@@ -60,7 +60,7 @@
         </div>
         <div class="grid grid-3">
             @forelse($featuredProducts as $product)
-                <a href="{{ route('products.show', ['locale' => $currentLocale, 'slug' => $product->slug]) }}" class="product-card reveal">
+                <a href="{{ localized_route('products.show', ['slug' => $product->slug]) }}" class="product-card reveal">
                     <div class="product-card__img">
                         <img src="{{ $product->thumbnail_url }}" alt="{{ $product->name }}" loading="lazy" width="400" height="300">
                     </div>
@@ -102,7 +102,7 @@
         <div class="cta-band reveal">
             <h2>{{ $currentLocale === 'en' ? "Have a project or shipment coming up?" : 'Ada proyek atau kebutuhan angkutan?' }}</h2>
             <p>{{ $currentLocale === 'en' ? 'Tell us the scope — we\'ll get back with a straightforward plan.' : 'Ceritakan kebutuhan Anda — tim kami akan merespons dengan solusi yang jelas.' }}</p>
-            <a href="{{ route('pages.contact', ['locale' => $currentLocale]) }}" class="btn btn-primary">{{ __('nav.get_quote') }}</a>
+            <a href="{{ localized_route('pages.contact') }}" class="btn btn-primary">{{ __('nav.get_quote') }}</a>
         </div>
     </div>
 </section>

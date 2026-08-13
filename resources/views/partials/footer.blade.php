@@ -17,17 +17,17 @@
         <div>
             <h4>{{ __('nav.products') }}</h4>
             <ul>
-                <li><a href="{{ route('products.index', ['locale' => $currentLocale]) }}">{{ __('nav.products') }}</a></li>
-                <li><a href="{{ route('pages.about', ['locale' => $currentLocale]) }}">{{ __('nav.about') }}</a></li>
-                <li><a href="{{ route('pages.our-client', ['locale' => $currentLocale]) }}">{{ __('nav.our_client') }}</a></li>
+                <li><a href="{{ localized_route('products.index') }}">{{ __('nav.products') }}</a></li>
+                <li><a href="{{ localized_route('pages.about') }}">{{ __('nav.about') }}</a></li>
+                <li><a href="{{ localized_route('pages.our-client') }}">{{ __('nav.our_client') }}</a></li>
             </ul>
         </div>
 
         <div>
             <h4>{{ $currentLocale === 'en' ? 'Legal' : 'Legalitas' }}</h4>
             <ul>
-                <li><a href="{{ route('pages.privacy', ['locale' => $currentLocale]) }}">{{ __('nav.privacy') }}</a></li>
-                <li><a href="{{ route('pages.terms', ['locale' => $currentLocale]) }}">{{ __('nav.terms') }}</a></li>
+                <li><a href="{{ localized_route('pages.privacy') }}">{{ __('nav.privacy') }}</a></li>
+                <li><a href="{{ localized_route('pages.terms') }}">{{ __('nav.terms') }}</a></li>
                 <li><a href="{{ route('download.company-profile') }}">{{ __('nav.download_profile') }}</a></li>
             </ul>
         </div>
