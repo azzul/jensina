@@ -69,10 +69,15 @@ button { font-family: inherit; cursor: pointer; }
 
 /* ---------- Header ---------- */
 .site-header {
-  position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, .92);
-  backdrop-filter: saturate(180%) blur(8px);
+  position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, .97);
   border-bottom: 1px solid var(--color-line); min-height: var(--header-h);
 }
+/* NOTE: intentionally no backdrop-filter here. filter/backdrop-filter
+   creates a new CSS containing block for any position:fixed descendant —
+   the mobile nav drawer below is fixed, so a blurred header would trap it
+   inside the header's own (tiny) box instead of the full viewport,
+   making the open menu invisible. A solid near-opaque background gives
+   almost the same "glassy" look without that side effect. */
 /* Header needs more breathing room than a normal content section (logo +
    5 nav links + a pill button + language switch + call button all sit on
    one row) — the shared .container's 1160px max-width was forcing those
@@ -189,9 +194,35 @@ button { font-family: inherit; cursor: pointer; }
   padding: 26px; transition: box-shadow .2s ease, transform .2s ease;
 }
 .card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
-.card__icon { width: 46px; height: 46px; border-radius: 12px; background: var(--color-primary-tint); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-primary-dark); }
+.card__icon { width: 46px; height: 46px; border-radius: 12px; background: var(--color-primary-tint); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-primary-dark); font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; }
 .card h3 { font-size: 1.05rem; }
 .card p { color: var(--color-ink-soft); font-size: .92rem; margin-bottom: 0; }
+
+/* ---------- Service card (photo-led "Layanan Kami" cards) ---------- */
+.service-card {
+  display: block; background: #fff; border: 1px solid var(--color-line); border-radius: var(--radius-md);
+  overflow: hidden; box-shadow: var(--shadow-sm); transition: box-shadow .2s ease, transform .2s ease;
+}
+.service-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.service-card__img { aspect-ratio: 4/3; overflow: hidden; background: var(--color-surface-alt); }
+.service-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+.service-card:hover .service-card__img img { transform: scale(1.05); }
+.service-card__body { padding: 20px 22px 24px; }
+.service-card__body h3 { font-size: 1.08rem; margin-bottom: 8px; }
+.service-card__body p { color: var(--color-ink-soft); font-size: .9rem; margin-bottom: 14px; }
+.service-card__link { display: inline-flex; align-items: center; gap: 6px; font-size: .86rem; font-weight: 700; color: var(--color-primary-dark); }
+
+/* ---------- Process steps (numbered "Cara Kami Bekerja") ---------- */
+.process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; position: relative; }
+@media (max-width: 899px) { .process-steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .process-steps { grid-template-columns: 1fr; } }
+.process-step { position: relative; padding-top: 8px; }
+.process-step__num {
+  font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; color: var(--color-primary);
+  -webkit-text-stroke: 1px var(--color-primary-dark); margin-bottom: 10px;
+}
+.process-step h3 { font-size: 1rem; margin-bottom: 6px; }
+.process-step p { color: var(--color-ink-soft); font-size: .88rem; margin-bottom: 0; }
 
 /* ---------- Product card ---------- */
 .product-card { background: #fff; border: 1px solid var(--color-line); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
@@ -257,20 +288,26 @@ button { font-family: inherit; cursor: pointer; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.12); margin-top: 40px; padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: .8rem; color: #8fb1ba; }
 
 /* ---------- Mobile nav ---------- */
-@media (max-width: 1180px) and (min-width: 900px) {
-  /* Trim the header before it needs to go full-mobile: drop the pill
-     button and the tagline first, they're the least essential pieces.
-     Range-bound to desktop widths only — the mobile drawer (<900px)
-     should still list the download link among the other nav items. */
-  .main-nav .btn { display: none; }
+/* Tagline hidden from 1180px down to 0 — it's the first thing to drop
+   since space gets tight, and it must never render with nowrap at phone
+   widths (that was the actual overflow bug: the tagline is long and
+   .brand small has white-space:nowrap, so leaving it visible below
+   900px forced the whole header row — and the page — wider than the
+   viewport). */
+@media (max-width: 1180px) {
   .brand small { display: none; }
+}
+@media (max-width: 1180px) and (min-width: 900px) {
+  /* Desktop-ish squeeze only: drop the pill button before going full
+     mobile. Below 900px it reappears as a normal item inside the drawer. */
+  .main-nav .btn { display: none; }
 }
 @media (max-width: 899px) {
   .nav-toggle { display: block; }
   .main-nav {
     position: fixed; inset: var(--header-h) 0 0 0; background: #fff; flex-direction: column;
     align-items: flex-start; padding: 26px 24px; gap: 18px; transform: translateX(100%);
-    transition: transform .25s ease; overflow-y: auto;
+    transition: transform .25s ease; overflow-y: auto; z-index: 150;
   }
   .main-nav.is-open { transform: translateX(0); }
 }

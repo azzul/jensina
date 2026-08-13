@@ -20,10 +20,18 @@
         </a>
 
         <nav class="main-nav" data-main-nav aria-label="Main navigation">
+            @php
+                // request()->routeIs('pages.about') would never match on an
+                // English page (its route is actually named 'en.pages.about'),
+                // so strip the 'en.' prefix before comparing.
+                $currentRouteName = request()->route()?->getName();
+                $currentBaseName = $currentRouteName && str_starts_with($currentRouteName, 'en.')
+                    ? substr($currentRouteName, 3)
+                    : $currentRouteName;
+            @endphp
             @foreach($navLinks as $link)
-                @php $isActive = request()->routeIs($link['route']); @endphp
                 <a href="{{ localized_route($link['route']) }}"
-                   @if($isActive) aria-current="page" @endif>
+                   @if($currentBaseName === $link['route']) aria-current="page" @endif>
                     {{ $link['label'] }}
                 </a>
             @endforeach

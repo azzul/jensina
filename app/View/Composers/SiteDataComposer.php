@@ -3,7 +3,7 @@
 namespace App\View\Composers;
 
 use App\Models\SiteSetting;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
 class SiteDataComposer
@@ -14,24 +14,9 @@ class SiteDataComposer
         $currentLocale = app()->getLocale();
         $otherLocale = $currentLocale === 'id' ? 'en' : 'id';
 
-        // Indonesian has no url segment, English is prefixed with "en" —
-        // strip a leading "en" if present to get the locale-agnostic rest
-        // of the path, then rebuild both versions from that.
-        $path = trim(Request::path(), '/');
-        $segments = $path === '' ? [] : explode('/', $path);
-
-        if (($segments[0] ?? null) === 'en') {
-            $rest = array_slice($segments, 1);
-        } else {
-            $rest = $segments;
-        }
-
-        $idPath = implode('/', $rest);
-        $enPath = implode('/', array_merge(['en'], $rest));
-
         $localeUrls = [
-            'id' => rtrim(url($idPath), '/') ?: url('/'),
-            'en' => url($enPath),
+            'id' => $this->urlFor('id'),
+            'en' => $this->urlFor('en'),
         ];
 
         $view->with([
@@ -41,5 +26,34 @@ class SiteDataComposer
             'localeUrls' => $localeUrls,
             'alternateLocaleUrl' => $localeUrls[$otherLocale],
         ]);
+    }
+
+    /**
+     * Build the equivalent URL for a given locale on the CURRENT page, by
+     * taking the current route's name (stripping the "en." prefix if
+     * present) and current route + query parameters, then regenerating the
+     * URL under the target locale's route name. Far more reliable than
+     * string-manipulating the current URL, and it's what powers both the
+     * hreflang tags and the header's ID/EN language switch links.
+     */
+    private function urlFor(string $locale): string
+    {
+        $routeName = Route::currentRouteName();
+
+        if (! $routeName) {
+            // No matched route (e.g. a 404 page) — fall back to that
+            // locale's homepage rather than erroring.
+            return $locale === 'en' ? route('en.home') : route('home');
+        }
+
+        $baseName = str_starts_with($routeName, 'en.') ? substr($routeName, 3) : $routeName;
+        $targetName = $locale === 'en' ? 'en.' . $baseName : $baseName;
+
+        $params = array_merge(
+            request()->route()?->parameters() ?? [],
+            request()->query()
+        );
+
+        return route($targetName, $params);
     }
 }

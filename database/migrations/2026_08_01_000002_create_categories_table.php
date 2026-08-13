@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('description_id')->nullable();
             $table->text('description_en')->nullable();
             $table->string('icon')->nullable(); // e.g. 'crane', 'truck' for UI
+            $table->string('image')->nullable(); // photo shown on the "Layanan Kami" cards
             $table->unsignedInteger('sort_order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();

@@ -81,6 +81,7 @@ class JensinaGroupSeeder extends Seeder
                 'name_en' => 'Building Construction',
                 'description_id' => 'Pembangunan dan renovasi gedung hunian, komersial, dan industri dengan standar mutu dan keselamatan kerja, dikerjakan oleh CV Anugerah Jensina Sejahtera.',
                 'description_en' => 'Construction and renovation of residential, commercial, and industrial buildings with quality and safety standards, carried out by CV Anugerah Jensina Sejahtera.',
+                'image' => 'categories/konstruksi.jpg',
                 'sort_order' => 1,
             ],
             [
@@ -89,6 +90,7 @@ class JensinaGroupSeeder extends Seeder
                 'name_en' => 'Heavy Equipment Rental',
                 'description_id' => 'Penyewaan alat berat untuk kebutuhan proyek konstruksi, pengurugan, dan pekerjaan lapangan lainnya, lengkap dengan operator berpengalaman.',
                 'description_en' => 'Heavy equipment rental for construction, land-filling, and other on-site project needs, complete with experienced operators.',
+                'image' => 'categories/sewa-alat-berat.jpg',
                 'sort_order' => 2,
             ],
             [
@@ -97,6 +99,7 @@ class JensinaGroupSeeder extends Seeder
                 'name_en' => 'Expedition & Hauling',
                 'description_id' => 'Jasa angkutan bahan bangunan, alat berat, dan kontainer menuju lokasi proyek maupun pelabuhan, tepat waktu dan aman, oleh PT Maju Jensina Jaya.',
                 'description_en' => 'Hauling of building materials, heavy equipment, and containers to project sites or ports, on time and safely, by PT Maju Jensina Jaya.',
+                'image' => 'categories/ekspedisi-material.jpg',
                 'sort_order' => 3,
             ],
         ];

@@ -11,17 +11,15 @@ class SetLocale
     public const SUPPORTED = ['id', 'en'];
 
     /**
-     * Indonesian has NO url prefix (it's the default) — "/", "/produk",
-     * "/tentang-kami". English is prefixed — "/en", "/en/produk". The
-     * {locale?} route parameter therefore only ever carries "en" (see the
-     * `where` constraint in routes/web.php); anything else means the
-     * segment wasn't present at all, so we're on the Indonesian route.
+     * The locale is now passed as a static middleware parameter from
+     * routes/web.php ("setlocale:id" / "setlocale:en") rather than read
+     * from a route segment — each locale's routes are registered
+     * separately (see routes/web.php), so there's no ambiguity to resolve
+     * at request time.
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $locale = 'id'): Response
     {
-        $locale = $request->route('locale') === 'en' ? 'en' : 'id';
-
-        app()->setLocale($locale);
+        app()->setLocale(in_array($locale, self::SUPPORTED, true) ? $locale : 'id');
 
         return $next($request);
     }

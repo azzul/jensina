@@ -5,21 +5,17 @@ use Illuminate\Support\Facades\App;
 if (! function_exists('localized_route')) {
     /**
      * Build a URL for a named route under the "id has no prefix, en is
-     * prefixed with /en" locale scheme, so callers never have to remember
-     * to add or drop the `locale` route parameter by hand — pass it the
-     * route name and any OTHER parameters, and it figures out the locale
-     * segment from the current (or given) locale automatically.
+     * prefixed with /en" locale scheme. Indonesian routes keep their plain
+     * name ("home", "products.index"); English routes are registered with
+     * an "en." name prefix ("en.home", "en.products.index") — see
+     * routes/web.php. This helper picks the right one automatically so
+     * callers never have to remember the naming convention.
      */
     function localized_route(string $name, array $parameters = [], ?string $locale = null): string
     {
         $locale = $locale ?? App::getLocale();
+        $routeName = $locale === 'en' ? 'en.' . $name : $name;
 
-        if ($locale === 'en') {
-            $parameters['locale'] = 'en';
-        } else {
-            unset($parameters['locale']);
-        }
-
-        return route($name, $parameters);
+        return route($routeName, $parameters);
     }
 }
