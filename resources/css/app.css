@@ -1,0 +1,281 @@
+/* =========================================================
+   Jensina Group — design tokens
+   Kept deliberately small: no utility framework, no unused
+   CSS. Everything below is actually used somewhere in the
+   Blade views. Light-blue brand tone -> elegant, airy feel.
+   ========================================================= */
+
+:root {
+  --color-primary: #3ec6e0;
+  --color-primary-dark: #1f9cb8;
+  --color-primary-tint: #eaf9fc;
+  --color-ink: #0f2733;
+  --color-ink-soft: #46606b;
+  --color-line: #dfeef2;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f6fbfc;
+
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: Georgia, "Times New Roman", serif;
+
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --shadow-sm: 0 2px 10px rgba(15, 39, 51, 0.06);
+  --shadow-md: 0 12px 32px rgba(15, 39, 51, 0.1);
+  --container: 1160px;
+  --header-h: 76px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-surface);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.2; margin: 0 0 .5em; color: var(--color-ink); }
+p { margin: 0 0 1em; }
+ul { margin: 0; padding: 0; list-style: none; }
+button { font-family: inherit; cursor: pointer; }
+
+.container { max-width: var(--container); margin-inline: auto; padding-inline: 20px; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+.skip-link {
+  position: absolute; left: -999px; top: 0; background: var(--color-ink);
+  color: #fff; padding: 10px 16px; z-index: 200; border-radius: 0 0 var(--radius-sm) 0;
+}
+.skip-link:focus { left: 0; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 22px; border-radius: 999px; font-weight: 600;
+  font-size: .95rem; border: 1px solid transparent; transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn-primary { background: var(--color-primary); color: #fff; box-shadow: var(--shadow-sm); }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-outline { border-color: var(--color-primary); color: var(--color-primary-dark); background: #fff; }
+.btn-outline:hover { background: var(--color-primary-tint); }
+.btn-ghost { color: var(--color-ink); }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, .92);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid var(--color-line); min-height: var(--header-h);
+}
+/* Header needs more breathing room than a normal content section (logo +
+   5 nav links + a pill button + language switch + call button all sit on
+   one row) — the shared .container's 1160px max-width was forcing those
+   links to wrap mid-word, which is what made the header look "dented". */
+.site-header .container { max-width: 1360px; }
+.site-header__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: var(--header-h); gap: 24px; padding-block: 12px; flex-wrap: nowrap;
+}
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.02rem; white-space: nowrap; flex-shrink: 0; }
+.brand img { height: 40px; width: auto; flex-shrink: 0; }
+.brand small { display: block; font-weight: 400; color: var(--color-ink-soft); font-size: .7rem; white-space: nowrap; }
+
+.main-nav { display: flex; align-items: center; gap: 20px; flex-wrap: nowrap; }
+.main-nav a { font-weight: 600; font-size: .9rem; color: var(--color-ink-soft); padding: 6px 0; position: relative; white-space: nowrap; }
+.main-nav a:hover, .main-nav a[aria-current="page"] { color: var(--color-primary-dark); }
+.main-nav a[aria-current="page"]::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--color-primary);
+}
+.main-nav .btn { white-space: nowrap; padding: 10px 18px; font-size: .85rem; }
+
+.header-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.lang-switch { display: flex; border: 1px solid var(--color-line); border-radius: 999px; overflow: hidden; font-size: .78rem; font-weight: 700; flex-shrink: 0; }
+.lang-switch a { padding: 6px 12px; color: var(--color-ink-soft); white-space: nowrap; }
+.lang-switch a[aria-current="true"] { background: var(--color-primary); color: #fff; }
+.header-actions .btn-primary { white-space: nowrap; padding: 10px 18px; font-size: .85rem; }
+
+.nav-toggle { display: none; background: none; border: none; padding: 6px; flex-shrink: 0; }
+.nav-toggle span { display: block; width: 24px; height: 2px; background: var(--color-ink); margin: 5px 0; border-radius: 2px; }
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb-bar { background: var(--color-surface-alt); border-bottom: 1px solid var(--color-line); }
+.breadcrumb { padding-block: 12px; font-size: .84rem; color: var(--color-ink-soft); }
+.breadcrumb ol { display: flex; flex-wrap: wrap; align-items: center; }
+.breadcrumb li { display: flex; align-items: center; }
+.breadcrumb li:not(:last-child)::after {
+  content: ""; width: 5px; height: 5px; border-top: 1.5px solid #b7ccd2; border-right: 1.5px solid #b7ccd2;
+  transform: rotate(45deg); margin: 0 10px; flex-shrink: 0;
+}
+.breadcrumb a { color: var(--color-ink-soft); font-weight: 500; }
+.breadcrumb a:hover { color: var(--color-primary-dark); text-decoration: underline; }
+.breadcrumb [aria-current="page"] { color: var(--color-ink); font-weight: 600; }
+
+/* =========================================================
+   Seamless scroll sections
+   Desktop: CSS scroll-snap gives that "one section per frame"
+   feel without hijacking JS scroll (keeps it accessible &
+   fast). Disabled below 900px so mobile scrolls naturally —
+   snap on a phone timeline feels broken, not "seamless".
+   ========================================================= */
+.scroll-shell {
+  scroll-snap-type: y proximity;
+}
+.snap-section {
+  scroll-snap-align: start;
+  padding-block: clamp(48px, 7vw, 96px);
+}
+@media (max-width: 899px) {
+  .scroll-shell { scroll-snap-type: none; }
+  .snap-section { scroll-snap-align: none; }
+}
+
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Hero entrance: above-the-fold content shouldn't wait on scroll/JS to
+   appear, so it animates in immediately via CSS on page load rather than
+   through the IntersectionObserver-driven .reveal class used elsewhere. */
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes heroZoomFade {
+  from { opacity: 0; transform: scale(.94) translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.hero-in-text { animation: heroRise .7s cubic-bezier(.22, .61, .36, 1) both; }
+.hero-in-image { animation: heroZoomFade .8s cubic-bezier(.22, .61, .36, 1) .15s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-in-text, .hero-in-image { animation: none; }
+}
+
+/* ---------- Hero ---------- */
+.hero { background: linear-gradient(180deg, var(--color-primary-tint), #fff 70%); }
+.hero__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+.hero h1 { font-size: clamp(2rem, 4vw, 3rem); }
+.hero__lede { font-size: 1.08rem; color: var(--color-ink-soft); max-width: 46ch; }
+.hero__cta { display: flex; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+.hero__art { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); aspect-ratio: 4/3; background: var(--color-surface-alt); }
+.hero__badges { display: flex; gap: 18px; margin-top: 28px; flex-wrap: wrap; }
+.hero__badge { font-size: .82rem; color: var(--color-ink-soft); display: flex; align-items: center; gap: 8px; }
+.hero__badge b { color: var(--color-ink); font-family: var(--font-display); font-size: 1.4rem; }
+@media (max-width: 899px) {
+  .hero__grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Section heading ---------- */
+.section-head { max-width: 640px; margin-bottom: 36px; }
+.eyebrow { display: inline-block; color: var(--color-primary-dark); font-weight: 700; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px; }
+.section-alt { background: var(--color-surface-alt); }
+
+/* ---------- Category / service grid ---------- */
+.grid { display: grid; gap: 22px; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 899px) { .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+.card {
+  background: #fff; border: 1px solid var(--color-line); border-radius: var(--radius-md);
+  padding: 26px; transition: box-shadow .2s ease, transform .2s ease;
+}
+.card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.card__icon { width: 46px; height: 46px; border-radius: 12px; background: var(--color-primary-tint); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-primary-dark); }
+.card h3 { font-size: 1.05rem; }
+.card p { color: var(--color-ink-soft); font-size: .92rem; margin-bottom: 0; }
+
+/* ---------- Product card ---------- */
+.product-card { background: #fff; border: 1px solid var(--color-line); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+.product-card__img { aspect-ratio: 4/3; background: var(--color-surface-alt); overflow: hidden; }
+.product-card__img img { width: 100%; height: 100%; object-fit: cover; }
+.product-card__body { padding: 18px 20px 22px; }
+.product-card__cat { font-size: .74rem; font-weight: 700; color: var(--color-primary-dark); text-transform: uppercase; letter-spacing: .04em; }
+.product-card h3 { font-size: 1.05rem; margin: 6px 0 8px; }
+.product-card p { color: var(--color-ink-soft); font-size: .9rem; }
+
+/* ---------- Product detail ---------- */
+.product-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+@media (max-width: 899px) { .product-hero { grid-template-columns: 1fr; } }
+.gallery-main { border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 4/3; background: var(--color-surface-alt); }
+.gallery-thumbs { display: flex; gap: 10px; margin-top: 10px; }
+.gallery-thumbs img { width: 74px; height: 56px; object-fit: cover; border-radius: 8px; border: 1px solid var(--color-line); }
+.spec-table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+.spec-table th, .spec-table td { text-align: left; padding: 10px 0; border-bottom: 1px solid var(--color-line); font-size: .92rem; }
+.spec-table th { width: 40%; color: var(--color-ink-soft); font-weight: 600; }
+
+/* ---------- Filters ---------- */
+.filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+.filter-chip { padding: 8px 16px; border: 1px solid var(--color-line); border-radius: 999px; font-size: .86rem; font-weight: 600; color: var(--color-ink-soft); }
+.filter-chip[aria-current="true"] { background: var(--color-ink); border-color: var(--color-ink); color: #fff; }
+
+/* ---------- Client logos ---------- */
+.client-logo { display: flex; align-items: center; justify-content: center; padding: 20px; border: 1px solid var(--color-line); border-radius: var(--radius-md); background: #fff; filter: grayscale(1); opacity: .75; transition: filter .2s, opacity .2s; }
+.client-logo:hover { filter: none; opacity: 1; }
+.client-logo img { max-height: 48px; }
+
+/* ---------- CTA band ---------- */
+.cta-band { background: var(--color-ink); color: #fff; border-radius: var(--radius-lg); padding: 48px; text-align: center; }
+.cta-band h2 { color: #fff; }
+.cta-band p { color: #b9d3da; }
+
+/* ---------- Form ---------- */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: .86rem; font-weight: 600; }
+.field input, .field textarea { padding: 12px 14px; border: 1px solid var(--color-line); border-radius: var(--radius-sm); font: inherit; }
+.field input:focus, .field textarea:focus { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+.alert-success { background: var(--color-primary-tint); border: 1px solid var(--color-primary); color: var(--color-primary-dark); padding: 14px 18px; border-radius: var(--radius-sm); margin-bottom: 20px; }
+.honeypot { position: absolute; left: -9999px; }
+
+/* ---------- Prose (for DB content: about/privacy/terms/custom pages) ---------- */
+.prose { max-width: 76ch; font-size: 1rem; }
+.prose h2 { font-size: 1.4rem; margin-top: 1.6em; }
+.prose h3 { font-size: 1.15rem; margin-top: 1.4em; }
+.prose ul { list-style: disc; padding-left: 1.4em; margin-bottom: 1em; }
+.prose li { margin-bottom: .4em; }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--color-ink); color: #cfe4ea; padding-block: 56px 24px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; }
+@media (max-width: 899px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
+.site-footer h4 { color: #fff; font-family: var(--font-body); font-size: .84rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; }
+.site-footer a { color: #cfe4ea; font-size: .9rem; }
+.site-footer a:hover { color: #fff; }
+.site-footer li { margin-bottom: 10px; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.12); margin-top: 40px; padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: .8rem; color: #8fb1ba; }
+
+/* ---------- Mobile nav ---------- */
+@media (max-width: 1180px) and (min-width: 900px) {
+  /* Trim the header before it needs to go full-mobile: drop the pill
+     button and the tagline first, they're the least essential pieces.
+     Range-bound to desktop widths only — the mobile drawer (<900px)
+     should still list the download link among the other nav items. */
+  .main-nav .btn { display: none; }
+  .brand small { display: none; }
+}
+@media (max-width: 899px) {
+  .nav-toggle { display: block; }
+  .main-nav {
+    position: fixed; inset: var(--header-h) 0 0 0; background: #fff; flex-direction: column;
+    align-items: flex-start; padding: 26px 24px; gap: 18px; transform: translateX(100%);
+    transition: transform .25s ease; overflow-y: auto;
+  }
+  .main-nav.is-open { transform: translateX(0); }
+}
+
+/* ---------- Pagination ---------- */
+.pagination { display: flex; gap: 6px; justify-content: center; margin-top: 30px; }
+.pagination a, .pagination span { padding: 8px 14px; border-radius: 8px; border: 1px solid var(--color-line); font-size: .88rem; }
+.pagination a:hover { background: var(--color-primary-tint); }
